@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход | Market{% endblock %}
+
+{% block content %}
+<section class="auth-wrap">
+    <div class="auth-card card">
+        <form id="login-form" class="auth-form active">
+            <h2>Войти</h2>
+            <label>
+                <span>Логин</span>
+                <input type="text" name="username" required>
+            </label>
+            <label>
+                <span>Пароль</span>
+                <input type="password" name="password" required>
+            </label>
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Новости | Market{% endblock %}
+
+{% block content %}
+<section class="card">
+    <div class="profile-header">
+        <div>
+            <p class="eyebrow">Лента</p>
+            <h1>Новости и обновления</h1>
+        </div>
+        <a href="/" class="btn btn-secondary">К объявлениям</a>
+    </div>
+
+    <div class="news-layout">
+        <div>
+            <div id="news-page-grid" class="news-list"></div>
+        </div>
+
+        <div>
+            <button id="toggle-news-form" class="btn btn-primary" type="button">Добавить новость</button>
+            <form id="news-form" class="report-form hidden">
+                <label>
+                    <span>Заголовок</span>
+                    <input name="title" required>
+                </label>
+                <label>
+                    <span>Slug</span>
+                    <input name="slug" placeholder="например: novost-1">
+                </label>
+                <label>
+                    <span>Категория</span>
+                    <select name="category" id="news-category" required></select>
+                </label>
+                <div class="grid-2">
+                    <label>
+                        <span>Город</span>
+                        <select name="city" id="news-city" required></select>
+                    </label>
+                    <label>
+                        <span>Район</span>
+                        <select name="district" id="news-district" required></select>
+                    </label>
+                </div>
+                <label>
+                    <span>Текст новости</span>
+                    <textarea name="content" rows="6" required></textarea>
+                </label>
+                <button type="submit" class="btn btn-primary">Отправить на модерацию</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        await loadCategories('#news-category', '#news-category');
+        await loadCities('#news-city', '#news-city');
+
+        const citySelect = document.getElementById('news-city');
+        if (citySelect) {
+            citySelect.addEventListener('change', (event) => loadDistricts(event.target.value, '#news-district', '#news-district'));
+        }
+
+        await loadNewsPage();
+    });
+</script>
+{% endblock %}

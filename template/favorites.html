@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Избранное | Market{% endblock %}
+
+{% block content %}
+<section class="card">
+    <div class="profile-header">
+        <div>
+            <p class="eyebrow">Закладки</p>
+            <h1>Избранные объявления</h1>
+        </div>
+        <a href="/" class="btn btn-secondary">На главную</a>
+    </div>
+
+    <div id="favorites-grid" class="ads-grid"></div>
+    <p id="favorites-empty" class="muted hidden">Пока нет избранных объявлений.</p>
+</section>
+{% endblock %}

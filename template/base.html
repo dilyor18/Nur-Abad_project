@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Market{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav">
+            <a href="/" class="brand">Нур-Абад</a>
+            <nav class="nav-links">
+                <a href="/">Главная</a>
+                <a href="/news/">Новости</a>
+                <a href="/profile/" id="profile-link">Профиль</a>
+                <a href="/favorites/" id="favorites-link">Избранное</a>
+                <a href="/chats/" id="chats-link">Чаты</a>
+                <a href="/admin-panel/" id="admin-link">Админка</a>
+                <a href="/auth/">Вход</a>
+                <a href="#" id="nav-create-ad">Создать объявление</a>
+            </nav>
+            <div class="user-box">
+                <span id="user-greeting" class="hidden"></span>
+                <button id="logout-btn" class="btn btn-light hidden">Выйти</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container page-shell">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

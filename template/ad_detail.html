@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Объявление | Market{% endblock %}
+
+{% block content %}
+<section class="detail-page">
+    <div id="ad-detail-root" class="card detail-card">
+        <p class="muted">Загрузка объявления...</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    async function loadAdDetailPage() {
+        const adId = {{ ad_id }};
+        try {
+            const ad = await api(`/ads/${adId}/`);
+            const image = ad.images && ad.images.length ? ad.images[0].image : 'https://placehold.co/1200x700/EEF2FF/1F2937?text=Market';
+            const mainImage = image.startsWith('http') ? image : `/media/${image}`;
+            const price = Number(ad.price || 0).toLocaleString('ru-RU');
+
+            const root = document.getElementById('ad-detail-root');
+            root.innerHTML = `
+                <div class="detail-image-wrap">
+                    <img src="${mainImage}" alt="${ad.title}" class="detail-image">
+                </div>
+                <div class="detail-body">
+                    <p class="eyebrow">${ad.category_name || 'Категория'}</p>
+                    <h1>${ad.title}</h1>
+                    <div class="detail-price">${price} ₽</div>
+                    <div class="detail-meta-row">
+                        <span class="badge">${ad.condition || 'Не указано'}</span>
+                        <span class="muted">${ad.city_name || 'Город'} / ${ad.district_name || 'Район'}</span>
+                    </div>
+                    <p class="detail-description">${ad.description || ''}</p>
+                    <div class="detail-author-box">
+                        <strong>Автор:</strong> ${ad.author || 'Не указано'}
+                    </div>
+                    <div class="detail-actions">
+                        <button id="toggle-report-form" class="btn btn-secondary" type="button">Пожаловаться</button>
+                    </div>
+                    <form id="report-form" class="report-form hidden" data-ad-id="${ad.id}">
+                        <label>
+                            <span>Причина жалобы</span>
+                            <textarea name="reason" rows="4" required placeholder="Опишите проблему..."></textarea>
+                        </label>
+                        <button type="submit" class="btn btn-primary">Отправить жалобу</button>
+                    </form>
+                </div>
+            `;
+
+            const toggleButton = document.getElementById('toggle-report-form');
+            const reportForm = document.getElementById('report-form');
+            if (toggleButton && reportForm) {
+                toggleButton.addEventListener('click', () => reportForm.classList.toggle('hidden'));
+            }
+        } catch (error) {
+            document.getElementById('ad-detail-root').innerHTML = `<p class="muted">${error.message}</p>`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadAdDetailPage);
+</script>
+{% endblock %}

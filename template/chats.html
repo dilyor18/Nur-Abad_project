@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Чаты | Market{% endblock %}
+
+{% block content %}
+<section class="card chat-shell">
+    <aside class="chat-sidebar">
+        <div class="profile-header" style="margin-bottom: 12px;">
+            <div>
+                <p class="eyebrow">Диалоги</p>
+                <h3>Сообщения</h3>
+            </div>
+        </div>
+        <div id="conversations-list"></div>
+    </aside>
+
+    <div class="chat-panel">
+        <div id="chat-header" class="chat-panel-header">Выберите чат</div>
+        <div id="chat-thread">
+            <p class="muted">Загрузка сообщений...</p>
+        </div>
+        <form id="message-form" class="chat-form hidden">
+            <textarea id="message-input" placeholder="Напишите сообщение..." required></textarea>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

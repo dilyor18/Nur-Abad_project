@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Админка | Market{% endblock %}
+
+{% block content %}
+<section class="card">
+    <div class="profile-header">
+        <div>
+            <p class="eyebrow">Администрирование</p>
+            <h1>Модерация и жалобы</h1>
+        </div>
+    </div>
+
+    <div class="admin-page">
+        <div>
+            <h3>Новости на проверку</h3>
+            <div id="admin-news-list" class="admin-list"></div>
+        </div>
+
+        <div>
+            <h3>Жалобы пользователей</h3>
+            <div id="admin-reports-list" class="admin-list"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        loadAdminPage();
+    });
+</script>
+{% endblock %}

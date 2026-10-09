@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import User
+from .models import Profile, User
 
 
 @admin.register(User)
@@ -21,3 +21,10 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
     readonly_fields = ('created_at',)
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'city', 'district', 'updated_at')
+    list_filter = ('city', 'district')
+    search_fields = ('user__username', 'user__email')
